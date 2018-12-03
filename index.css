@@ -1,0 +1,28 @@
+html{
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+#progress {
+    height: 5px;
+	position: relative;
+	background: #555;
+}
+
+#progress > span {
+    display: block;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    background-color: yellow;
+    transition: width 500ms;
+}
+
+#frame {
+    border: 0px;
+    width: 100%;
+}
