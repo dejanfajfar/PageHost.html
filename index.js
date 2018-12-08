@@ -1,7 +1,7 @@
 let frames = [
-    'admiral.at',
-    'facebook.com',
-    'derstandard.at'
+    'https://www.mqw.at/',
+    'https://www.heute.at/',
+    'https://derstandard.at/'
 ];
 
 let frame = document.getElementById('frame');
@@ -13,18 +13,36 @@ function setProgress(progressPercentage){
     progressBar.style.width = progressPercentage%100 + '%';
 }
 
-let progress = 1;
+let progress = 0;
+let exposure = 40;
+let exposureLeft = exposure;
 setProgress(progress);
+
+function calculateTickSize(impressDuration){
+    if (! impressDuration ) {
+        impressDuration = 60;
+    }
+
+    return 100/impressDuration;
+}
 
 
 function tick(){
-    if (progress%100 === 0) {
+    if (exposureLeft === 0) {
         loadNextFrame();
         progress = 0;
+        exposureLeft = exposure;
         setProgress(0);
     }
-    progress += 2
+    exposureLeft -= 1;
+    progress += calculateTickSize(exposure)
     setProgress(progress);
+}
+
+function loadNextFrame(){
+    let nextDestination = frames.shift();
+    frames.push(nextDestination);
+    frame.src = nextDestination;
 }
 
 setInterval(tick, 1000);
